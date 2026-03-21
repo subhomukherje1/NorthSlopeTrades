@@ -14,36 +14,17 @@
 .hero-bg {
     position: absolute;
     inset: 0;
-    background:
+    background-image: 
         linear-gradient(
-            160deg,
-            #0A0F1E 0%,
-            #0F1E2E 30%,
-            #1A2535 50%,
-            #0F172A 100%
-        );
-    overflow: hidden;
-}
-
-/* Arctic atmosphere texture overlay */
-.hero-bg::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2338BDF8' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    opacity: 0.5;
-    z-index: 1;
-}
-
-/* Secondary texture for depth */
-.hero-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: 
-        radial-gradient(ellipse at 20% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(249, 115, 22, 0.03) 0%, transparent 40%);
-    z-index: 2;
+            to bottom,
+            rgba(8, 12, 24, 0.72) 0%,
+            rgba(8, 12, 24, 0.82) 60%,
+            rgba(8, 12, 24, 0.95) 100%
+        ),
+        url('https://customer-assets.emergentagent.com/job_arctic-trades/artifacts/jeg1kger_ChatGPT%20Image%20Mar%2021%2C%202026%20at%2010_05_24%20PM.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* Hero headline text shadows for legibility */
