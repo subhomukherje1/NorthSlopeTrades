@@ -3,41 +3,69 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
-        <meta name="description" content="A product of emergent.sh" />
+        <meta name="theme-color" content="#0A0F1E" />
+        
+        <!-- Primary SEO -->
+        <title>North Slope Trades | Certified Tradesmen for Alaska's North Slope</title>
+        <meta name="description" content="Pre-vetted, NSTC-certified tradesmen deployed to Alaska's North Slope within 72 hours. Pipefitters, welders, operators and more. Submit your profile or request workers today.">
+        <meta name="keywords" content="North Slope jobs, Alaska oil field work, NSTC certified tradesmen, pipefitter jobs Alaska, Prudhoe Bay jobs, Deadhorse Alaska jobs, Willow Project jobs, FIFO rotational work Alaska, oilfield recruiter Alaska">
+        <link rel="canonical" href="https://www.northslopetrades.com/">
+
+        <!-- Open Graph (LinkedIn, Facebook sharing) -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://www.northslopetrades.com/">
+        <meta property="og:title" content="North Slope Trades | Certified Tradesmen Deployed in 72 Hours">
+        <meta property="og:description" content="Pre-vetted, NSTC-certified tradesmen for Alaska's North Slope. 72-hour deployment. FIFO-ready candidates for Prudhoe Bay, Deadhorse, and Willow Project operations.">
+        <meta property="og:image" content="https://www.northslopetrades.com/og-image.jpg">
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="North Slope Trades | Certified Tradesmen Deployed in 72 Hours">
+        <meta name="twitter:description" content="Pre-vetted, NSTC-certified tradesmen for Alaska's North Slope. 72-hour deployment.">
+        <meta name="twitter:image" content="https://www.northslopetrades.com/og-image.jpg">
+
+        <!-- Robots -->
+        <meta name="robots" content="index, follow">
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230F172A'/><text y='24' x='4' font-size='22' fill='%2338BDF8' font-family='Arial Black,sans-serif' font-weight='900'>N</text></svg>">
+
+        <!-- Google Fonts: Barlow Condensed + Barlow -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" />
-        <!--
-        manifest.json provides metadata used when your web app is installed on a
-        user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-        -->
-        <!--
-        Notice the use of %PUBLIC_URL% in the tags above.
-        It will be replaced with the URL of the `public` folder during the build.
-        Only files inside the `public` folder can be referenced from the HTML.
+        <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-        Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-        work correctly both with client-side routing and a non-root public URL.
-        Learn how to configure a non-root public URL by running `npm run build`.
-        -->
-        <title>Emergent | Fullstack App</title>
+        <!-- Google Analytics 4 — replace GA_MEASUREMENT_ID with actual ID -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'GA_MEASUREMENT_ID');
+        </script>
+
+        <!-- Facebook Pixel — replace PIXEL_ID with actual Pixel ID -->
+        <script>
+          !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+          n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+          document,'script','https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', 'PIXEL_ID');
+          fbq('track', 'PageView');
+        </script>
+        <noscript>
+          <img height="1" width="1" style="display:none"
+          src="https://www.facebook.net/tr?id=PIXEL_ID&ev=PageView&noscript=1"/>
+        </noscript>
+
         <script>window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);</script>
         <script src="https://assets.emergent.sh/scripts/emergent-main.js"></script>
     </head>
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root"></div>
-        <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
         <a
             id="emergent-badge"
             target="_blank"
@@ -147,12 +175,50 @@
             })(document, window.posthog || []);
             posthog.init("phc_xAvL2Iq4tFmANRE7kzbKwaSqp1HJjN7x48s3vr0CMjs", {
                 api_host: "https://us.i.posthog.com",
-                person_profiles: "identified_only", // or 'always' to create profiles for anonymous users as well,
+                person_profiles: "identified_only",
                 session_recording: {
                     recordCrossOriginIframes: true,
                     capturePerformance: false,
                 },
             });
+        </script>
+
+        <!-- JSON-LD Structured Data -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "EmploymentAgency",
+          "name": "North Slope Trades",
+          "description": "Rapid labor deployment agency specializing in NSTC-certified tradesmen for Alaska's North Slope energy sector.",
+          "url": "https://www.northslopetrades.com",
+          "email": "hello@northslopetrades.com",
+          "areaServed": {
+            "@type": "Place",
+            "name": "Alaska North Slope",
+            "containedInPlace": {
+              "@type": "State",
+              "name": "Alaska",
+              "containedInPlace": {
+                "@type": "Country",
+                "name": "United States"
+              }
+            }
+          },
+          "knowsAbout": [
+            "Pipefitters",
+            "Welders",
+            "Heavy Equipment Operators",
+            "Instrumentation Technicians",
+            "Roustabouts",
+            "Heavy Duty Mechanics",
+            "NSTC Certification",
+            "FIFO Rotational Work",
+            "North Slope Operations",
+            "Willow Project",
+            "Prudhoe Bay"
+          ],
+          "sameAs": []
+        }
         </script>
     </body>
 </html>
