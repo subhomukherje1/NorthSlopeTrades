@@ -1,0 +1,117 @@
+{
+  "project_name": "North Slope Trades",
+  "theme": "dark-only",
+  "emotional_archetype": "THE PERFORMANCE PRO (Tactical Minimalism)",
+  "typography": {
+    "import_url": "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;800;900&family=Barlow:wght@400;500;600;700&display=swap",
+    "headers": {
+      "family": "'Barlow Condensed', sans-serif",
+      "styles": "font-black uppercase tracking-tighter leading-none",
+      "usage": "Hero titles, section headers, prominent stats. Never center-align by default."
+    },
+    "body": {
+      "family": "'Barlow', sans-serif",
+      "styles": "text-slate-300 leading-relaxed tracking-wide",
+      "usage": "Paragraphs, labels, and intake form descriptions."
+    },
+    "labels": {
+      "styles": "uppercase text-xs font-bold tracking-[0.2em] text-sky-400"
+    }
+  },
+  "colors": {
+    "primary_bg": "#0A0F1E",
+    "surface": "#0F172A",
+    "accent_cta": "#F97316",
+    "accent_secondary": "#38BDF8",
+    "text_main": "#F8FAFC",
+    "text_muted": "#94A3B8",
+    "border_color": "#1E293B",
+    "hover_state": "#EA580C",
+    "error_state": "#EF4444"
+  },
+  "visual_enhancers": {
+    "surface_strategy": "GRID BORDERS & TACTICAL MINIMALISM. No soft shadows. Use 1px sharp borders.",
+    "borders": "border border-slate-800",
+    "radius": "rounded-none or rounded-sm maximum. Sharp edges for industrial feel.",
+    "textures": "Use CSS noise texture (opacity 0.02) over the main background to prevent it from feeling digital flat. It must feel like raw material."
+  },
+  "grids_and_layouts": {
+    "spacing_scale": "Generous spacing. py-20 or py-32 for sections. gap-8 to gap-12 for bento grids.",
+    "hero": "min-h-screen, grid-cols-1 md:grid-cols-12, image background with heavy #0A0F1E overlay (opacity 85%).",
+    "specializations": "Bento Grid Mode A (Asymmetric Tetris). Mix tall, wide, and square cards with Grid Borders.",
+    "mobile_first": "Always start with grid-cols-1. Ensure padding is at least p-4 on mobile edges."
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#F97316] hover:bg-[#EA580C] text-white font-bold uppercase tracking-widest px-8 py-4 transition-colors",
+      "outline": "border-2 border-[#38BDF8] text-[#38BDF8] hover:bg-[#38BDF8] hover:text-[#0A0F1E] font-bold uppercase tracking-widest px-8 py-4 transition-colors"
+    },
+    "forms": {
+      "inputs": "bg-[#0F172A] border border-[#1E293B] text-white focus:border-[#F97316] focus:ring-1 focus:ring-[#F97316] rounded-none px-4 py-3 h-12",
+      "labels": "text-slate-300 font-semibold uppercase tracking-wider text-sm mb-2 block",
+      "knockout_logic": "Implement React state for conditional rendering (e.g., if uncertified, show rejection message)."
+    },
+    "cards": {
+      "base": "bg-[#0F172A] border border-[#1E293B] p-8 hover:border-[#38BDF8] transition-colors group",
+      "content": "Use Ice Blue (#38BDF8) for icons and subtle hover reveals."
+    },
+    "sticky_mobile_cta": "fixed bottom-0 left-0 w-full p-4 bg-[#0A0F1E]/95 backdrop-blur-md border-t border-slate-800 z-50 md:hidden flex justify-center items-center"
+  },
+  "motion": {
+    "hover": "High-contrast color shifts. Slight translate-x-1 on links.",
+    "entrance": "Staggered fade-up for grid items. Use intersection observer or simple CSS animations.",
+    "reduced_motion": "Respect prefers-reduced-motion media query."
+  },
+  "accessibility": {
+    "tap_targets": "Minimum 44x44px for all interactable elements (CRITICAL for mobile workers).",
+    "contrast": "Text must meet WCAG AA against dark backgrounds. Use drop-shadow on text over images.",
+    "test_ids": "Add data-testid to ALL forms, buttons, and section wrappers (e.g., data-testid='hero-apply-btn')."
+  },
+  "media": {
+    "image_constraints": "max-h-[80vh] on mobile. Wrap images in containers with overflow-hidden and grayscale to maintain the brand tone."
+  },
+  "image_urls": [
+    {
+      "url": "https://images.pexels.com/photos/3207536/pexels-photo-3207536.jpeg",
+      "category": "Hero Section Background",
+      "description": "Majestic offshore oil platform under a bright sky. CRITICAL: Add bg-[#0A0F1E]/80 overlay to make it dark and fit the theme."
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1762786219193-f34607f29d38",
+      "category": "Trade Specializations / Worker Intake",
+      "description": "Welder wearing protective gear and welding metal. Represents the skilled tradesman."
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1770764598158-331fa2e83579",
+      "category": "Client / Operator Section",
+      "description": "Excavator working on a snowy, wooded hillside. Represents heavy arctic operations."
+    },
+    {
+      "url": "https://images.pexels.com/photos/2880871/pexels-photo-2880871.jpeg",
+      "category": "Blog / Intelligence Article Thumbnail",
+      "description": "A skilled welder works with a torch in an industrial environment."
+    }
+  ],
+  "instructions_to_main_agent": {
+    "setup": "Use raw HTML elements (div, section) + Tailwind for structural layouts. Customize Shadcn forms for the specific #0F172A backgrounds and #1E293B borders.",
+    "font_injection": "Add Google Fonts link for Barlow and Barlow Condensed in the index.html or global layout.",
+    "css_vars": "Avoid Vercel/Stripe looks. No generic soft drop-shadows. Use harsh 1px borders.",
+    "forms": "Use Shadcn components for complex logic, but strip rounded borders and soft shadows. Apply industrial styling.",
+    "tracking": "Embed mock or real placeholders for GA4 and Facebook Pixel in the head."
+  },
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy and 1px sharp borders.",
+    "Use glass-morphism effects with backdrop filters for sticky navigation and mobile CTAs.",
+    "You MUST NOT apply universal transition (e.g. transition: all). Add transitions for specific interactive elements.",
+    "You MUST NOT center align the app container. Left-align text for better readability.",
+    "Always use modern button styles (in this case, sharp-edged, high-contrast tactical buttons).",
+    "NEVER use AI assistant Emoji characters for icons. Use standard icon libraries (lucide-react).",
+    "Every interaction needs micro-animations - hover states, transitions.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "All interactive and key informational elements MUST include a 'data-testid' attribute.",
+    "For .js files, use standard React function components with PropTypes if needed, avoid TypeScript syntax."
+  ]
+}
