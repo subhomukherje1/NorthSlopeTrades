@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import "@/App.css";
 import axios from "axios";
 import { Phone, Upload, ArrowRight, CheckCircle, Zap, Shield, RefreshCw, Wrench, Flame, Gauge, HardHat, Settings, Cog, Twitter, Linkedin } from "lucide-react";
+import DeploymentMap from "./components/DeploymentMap";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -1028,6 +1029,7 @@ function App() {
         scrollToClientForm={scrollToClientForm} 
       />
       <SpecializationsSection />
+      <DeploymentMap />
       <HowItWorksSection />
       <SocialFeedSection />
       <WorkerFormSection formRef={workerFormRef} />

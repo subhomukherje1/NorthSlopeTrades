@@ -1209,3 +1209,333 @@
 .twitter-timeline-rendered {
     background: transparent !important;
 }
+
+/* ========================================
+   DEPLOYMENT INTELLIGENCE MAP
+   ======================================== */
+
+.deployment-map-section {
+    padding: 5rem 1.5rem;
+    background: linear-gradient(180deg, #0A0F1E 0%, #0F172A 50%, #0A0F1E 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .deployment-map-section {
+        padding: 6rem 2rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .deployment-map-section {
+        padding: 8rem 4rem;
+    }
+}
+
+.deployment-map-container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.deployment-map-header {
+    text-align: left;
+    margin-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+    .deployment-map-header {
+        margin-bottom: 4rem;
+    }
+}
+
+.deployment-map-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: #F8FAFC;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+@media (min-width: 768px) {
+    .deployment-map-title {
+        font-size: 2.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .deployment-map-title {
+        font-size: 3rem;
+    }
+}
+
+.deployment-map-subtitle {
+    font-size: 1rem;
+    color: #94A3B8;
+    max-width: 600px;
+    line-height: 1.7;
+}
+
+@media (min-width: 768px) {
+    .deployment-map-subtitle {
+        font-size: 1.125rem;
+    }
+}
+
+/* Map Wrapper */
+.map-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    aspect-ratio: 1 / 1;
+    background: 
+        radial-gradient(ellipse at 50% 50%, rgba(56, 189, 248, 0.03) 0%, transparent 70%),
+        linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(10, 15, 30, 0.9) 100%);
+    border: 1px solid rgba(56, 189, 248, 0.15);
+    border-radius: 4px;
+    overflow: visible;
+}
+
+@media (min-width: 768px) {
+    .map-wrapper {
+        aspect-ratio: 4 / 3;
+    }
+}
+
+/* Alaska SVG Map */
+.alaska-map-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.alaska-mainland {
+    transition: stroke 0.3s ease;
+}
+
+.alaska-map-svg:hover .alaska-mainland {
+    stroke: rgba(56, 189, 248, 0.5);
+}
+
+/* Connection line animation */
+.connection-line {
+    stroke-dashoffset: 0;
+    animation: dashMove 20s linear infinite;
+}
+
+@keyframes dashMove {
+    to {
+        stroke-dashoffset: -100;
+    }
+}
+
+/* Hotspot dots */
+.hotspot-dot {
+    transition: r 0.3s ease, opacity 0.3s ease;
+}
+
+.hotspot-dot:hover,
+.hotspot-dot.active {
+    r: 2.5;
+}
+
+/* Pulse animation */
+.pulse-ring {
+    transform-origin: center;
+    animation: pulseRing 2s ease-out infinite;
+}
+
+.pulse-ring-1 {
+    animation-delay: 0s;
+}
+
+.pulse-ring-2 {
+    animation-delay: 0.5s;
+}
+
+@keyframes pulseRing {
+    0% {
+        r: 2;
+        opacity: 0.6;
+    }
+    100% {
+        r: 8;
+        opacity: 0;
+    }
+}
+
+/* Tooltips */
+.map-tooltip {
+    position: absolute;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    min-width: 240px;
+    max-width: 300px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px) scale(0.98);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    z-index: 100;
+    pointer-events: none;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.map-tooltip.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+/* Desktop tooltip positions */
+.tooltip-north-slope {
+    top: 10%;
+    right: 10%;
+    left: auto;
+}
+
+.tooltip-anchorage {
+    top: 50%;
+    left: 10%;
+    right: auto;
+}
+
+/* Tooltip positioning adjustments for mobile */
+@media (max-width: 767px) {
+    .map-tooltip {
+        position: fixed;
+        left: 50% !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: 120px;
+        transform: translateX(-50%) translateY(10px) scale(0.98);
+        min-width: 280px;
+        max-width: calc(100vw - 2rem);
+    }
+    
+    .map-tooltip.active {
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+}
+
+.tooltip-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.tooltip-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.tooltip-subtitle {
+    font-size: 0.6875rem;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tooltip-data {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.tooltip-data-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tooltip-icon {
+    color: #64748B;
+    flex-shrink: 0;
+}
+
+.tooltip-value {
+    font-size: 0.8125rem;
+    color: #E2E8F0;
+    font-weight: 500;
+}
+
+/* Map Legend */
+.map-legend {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(10, 15, 30, 0.8);
+    border: 1px solid rgba(56, 189, 248, 0.1);
+    border-radius: 4px;
+}
+
+@media (min-width: 768px) {
+    .map-legend {
+        flex-direction: row;
+        gap: 1.5rem;
+        bottom: 1.5rem;
+        left: 1.5rem;
+    }
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.legend-label {
+    font-size: 0.6875rem;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+}
+
+/* Map instruction text */
+.map-instruction {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #64748B;
+    margin-top: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .pulse-ring,
+    .connection-line {
+        animation: none;
+    }
+    
+    .map-tooltip {
+        transition: opacity 0.1s ease;
+    }
+}
