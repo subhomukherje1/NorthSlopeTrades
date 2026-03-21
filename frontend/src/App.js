@@ -96,35 +96,38 @@ const HeroSection = ({ scrollToWorkerForm, scrollToClientForm }) => (
     <div className="hero-bg" />
     <Header />
     <div className="hero-content">
-      <h1 
-        className="hero-headline text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black uppercase tracking-tighter leading-none mb-6 animate-fade-in-up"
-        style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-        data-testid="hero-title"
-      >
-        North Slope Ready.<br />
-        <span className="hero-headline-accent">Deployed in 72 Hours.</span>
-      </h1>
-      <p 
-        className="text-base sm:text-lg text-slate-300 max-w-xl mb-8 leading-relaxed animate-fade-in-up animation-delay-100"
-        data-testid="hero-subtitle"
-      >
-        Pre-vetted, FIFO-ready tradesmen for Alaska's most demanding energy operations.
-      </p>
-      <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animation-delay-200">
-        <button
-          onClick={scrollToWorkerForm}
-          className="btn-primary"
-          data-testid="hero-join-roster-btn"
+      <div className="hero-text-block">
+        <h1 
+          className="hero-headline text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black uppercase tracking-tighter leading-none mb-6 animate-fade-in-up"
+          style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+          data-testid="hero-title"
         >
-          Join the Deployment Roster
-        </button>
-        <button
-          onClick={scrollToClientForm}
-          className="btn-outline"
-          data-testid="hero-request-workers-btn"
+          <span className="hero-headline-primary">North Slope Ready.</span><br />
+          <span className="hero-headline-accent">Deployed in 72 Hours.</span>
+        </h1>
+        <p 
+          className="text-base sm:text-lg text-slate-300 max-w-xl mb-8 leading-relaxed animate-fade-in-up animation-delay-100"
+          style={{ textShadow: '0 1px 3px rgba(0,0,0,0.8)' }}
+          data-testid="hero-subtitle"
         >
-          Request Workers
-        </button>
+          Pre-vetted, FIFO-ready tradesmen for Alaska's most demanding energy operations.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animation-delay-200">
+          <button
+            onClick={scrollToWorkerForm}
+            className="btn-primary"
+            data-testid="hero-join-roster-btn"
+          >
+            Join the Deployment Roster
+          </button>
+          <button
+            onClick={scrollToClientForm}
+            className="btn-outline"
+            data-testid="hero-request-workers-btn"
+          >
+            Request Workers
+          </button>
+        </div>
       </div>
       <div className="trust-bar animate-fade-in-up animation-delay-300">
         <p data-testid="trust-bar-text">

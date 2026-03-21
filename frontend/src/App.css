@@ -32,12 +32,47 @@
     text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 4px 24px rgba(0,0,0,0.6);
 }
 
+.hero-headline-primary {
+    color: #FFFFFF;
+    font-weight: 900;
+    text-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.9),
+        0 4px 20px rgba(0, 0, 0, 0.8),
+        -1px -1px 0 rgba(0, 0, 0, 0.4),
+        1px 1px 0 rgba(0, 0, 0, 0.4);
+}
+
 .hero-headline-accent {
     color: #38BDF8;
+    font-weight: 900;
     text-shadow:
-        0 0 30px rgba(56,189,248,0.3),
-        0 2px 4px rgba(0,0,0,0.9),
-        0 4px 24px rgba(0,0,0,0.7);
+        0 0 40px rgba(56, 189, 248, 0.5),
+        0 2px 4px rgba(0, 0, 0, 1),
+        0 4px 20px rgba(0, 0, 0, 0.9),
+        -1px -1px 0 rgba(0, 0, 0, 0.5),
+        1px -1px 0 rgba(0, 0, 0, 0.5),
+        -1px 1px 0 rgba(0, 0, 0, 0.5),
+        1px 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* Hero text block backdrop */
+.hero-text-block {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-text-block::before {
+    content: '';
+    position: absolute;
+    inset: -40px -60px -40px -80px;
+    background: linear-gradient(
+        to right,
+        rgba(8, 12, 24, 0.75) 0%,
+        rgba(8, 12, 24, 0.5) 60%,
+        transparent 100%
+    );
+    z-index: -1;
+    border-radius: 4px;
 }
 
 .hero-content {
@@ -297,6 +332,7 @@
 .hiw-section {
     position: relative;
     background-color: #0A0F1E;
+    padding-bottom: 3rem;
 }
 
 .hiw-bg {
@@ -466,12 +502,14 @@
 
 .radio-input {
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border: 2px solid #1E293B;
+    border-radius: 50%;
     background-color: #0A0F1E;
     cursor: pointer;
     position: relative;
+    accent-color: #F97316;
 }
 
 .radio-input:checked {
@@ -484,9 +522,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     background-color: #F97316;
+    border-radius: 50%;
 }
 
 .checkbox-group {
@@ -901,16 +940,25 @@
 
 /* Trust Bar */
 .trust-bar {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(56, 189, 248, 0.2);
 }
 
 .trust-bar p {
     font-size: 0.8125rem;
-    color: #64748B;
+    color: rgba(255, 255, 255, 0.85);
     line-height: 1.6;
     max-width: 600px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+}
+
+.trust-bar p::before {
+    content: '— ';
+    color: #38BDF8;
 }
 
 /* Loading Spinner */
@@ -975,7 +1023,7 @@
 
 /* Social Feed Section */
 .updates-section {
-    padding: 5rem 1.5rem;
+    padding: 3rem 1.5rem 5rem;
     background: #0A0F1E;
     border-top: 1px solid rgba(56,189,248,0.1);
     border-bottom: 1px solid rgba(56,189,248,0.1);
