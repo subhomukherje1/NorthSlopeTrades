@@ -90,13 +90,6 @@
     text-shadow: 0 1px 8px rgba(0,0,0,0.8);
 }
 
-.hero-buttons {
-    display: flex;
-    gap: 16px;
-    margin-top: 36px;
-    flex-wrap: wrap;
-}
-
 /* Header */
 .header {
     position: absolute;
@@ -156,13 +149,12 @@
     align-items: center;
     justify-content: center;
     min-height: 56px;
-    min-width: 220px;
-    padding: 18px 36px;
+    padding: 18px 28px;
     background-color: #F97316;
     color: white;
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     text-decoration: none;
@@ -188,13 +180,12 @@
     align-items: center;
     justify-content: center;
     min-height: 56px;
-    min-width: 220px;
-    padding: 16px 36px;
+    padding: 16px 28px;
     background-color: transparent;
     color: #38BDF8;
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     text-decoration: none;
@@ -210,9 +201,23 @@
 
 .hero-buttons {
     display: flex;
+    flex-direction: row;
     gap: 16px;
     margin-top: 36px;
     flex-wrap: wrap;
+    align-items: center;
+}
+
+@media (max-width: 480px) {
+    .hero-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .hero-buttons a,
+    .hero-buttons button {
+        width: 100%;
+        text-align: center;
+    }
 }
 
 /* Section Styling */
@@ -389,16 +394,12 @@
 /* How It Works */
 .hiw-section {
     position: relative;
+    background-color: #0F172A;
+    background-image: none;
 }
 
 .hiw-bg {
-    position: absolute;
-    inset: 0;
-    background-image: 
-        linear-gradient(to bottom, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.98)),
-        url('https://images.pexels.com/photos/802426/pexels-photo-802426.jpeg?auto=compress&cs=tinysrgb&w=1920');
-    background-size: cover;
-    background-position: center;
+    display: none;
 }
 
 .hiw-content {
@@ -587,8 +588,8 @@
 .checkbox-group {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-    margin-top: 0.5rem;
+    gap: 12px;
+    margin-top: 12px;
 }
 
 @media (min-width: 640px) {
@@ -600,21 +601,43 @@
 .checkbox-label {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 10px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
     cursor: pointer;
-    color: #F8FAFC;
+    transition: border-color 0.2s, background 0.2s;
+    min-height: 44px;
+    color: rgba(255,255,255,0.85);
     font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.checkbox-label:hover {
+    border-color: rgba(56,189,248,0.4);
+    background: rgba(56,189,248,0.05);
+}
+
+.checkbox-label:has(input:checked) {
+    border-color: #38BDF8;
+    background: rgba(56,189,248,0.1);
+    color: #38BDF8;
 }
 
 .checkbox-input {
     appearance: none;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #1E293B;
-    background-color: #0A0F1E;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 4px;
+    background-color: transparent;
     cursor: pointer;
     position: relative;
     flex-shrink: 0;
+    accent-color: #38BDF8;
 }
 
 .checkbox-input:checked {
@@ -626,9 +649,9 @@
     content: '';
     position: absolute;
     top: 2px;
-    left: 6px;
+    left: 5px;
     width: 5px;
-    height: 10px;
+    height: 9px;
     border: solid #0A0F1E;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
@@ -997,18 +1020,18 @@
 /* Trust Bar */
 .trust-bar {
     margin-top: 48px;
-    padding-top: 24px;
+    padding-top: 20px;
     border-top: 1px solid rgba(56, 189, 248, 0.2);
 }
 
 .trust-bar p {
     font-family: 'Barlow', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.75);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+    letter-spacing: 0.12em;
+    text-shadow: 0 1px 4px rgba(0,0,0,1);
     line-height: 1.6;
     max-width: 480px;
 }
