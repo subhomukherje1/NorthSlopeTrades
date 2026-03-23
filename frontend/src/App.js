@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import "@/App.css";
 import axios from "axios";
 import { Phone, Upload, ArrowRight, CheckCircle, Zap, Shield, RefreshCw, Wrench, Flame, Gauge, HardHat, Settings, Cog, Twitter, Linkedin } from "lucide-react";
-import DeploymentMap from "./components/DeploymentMap";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -94,46 +93,60 @@ const Header = () => (
 // Hero Section
 const HeroSection = ({ scrollToWorkerForm, scrollToClientForm }) => (
   <section className="hero-section" data-testid="hero-section">
-    <div className="hero-bg" />
     <Header />
     <div className="hero-content">
-      <div className="hero-text-block">
-        <h1 
-          className="hero-headline text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black uppercase tracking-tighter leading-none mb-6 animate-fade-in-up"
-          style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-          data-testid="hero-title"
+      <h1 className="hero-headline" data-testid="hero-title">
+        <span className="hero-headline-primary">North Slope Ready.</span>
+        <span className="hero-headline-accent">Deployed in 72 Hours.</span>
+      </h1>
+      <p className="hero-subheadline" data-testid="hero-subtitle">
+        Pre-vetted, FIFO-ready tradesmen for Alaska's most demanding energy operations.
+      </p>
+      <div className="hero-buttons">
+        <button
+          onClick={scrollToWorkerForm}
+          className="btn-primary"
+          data-testid="hero-join-roster-btn"
         >
-          <span className="hero-headline-primary">North Slope Ready.</span><br />
-          <span className="hero-headline-accent">Deployed in 72 Hours.</span>
-        </h1>
-        <p 
-          className="text-base sm:text-lg text-slate-300 max-w-xl mb-8 leading-relaxed animate-fade-in-up animation-delay-100"
-          style={{ textShadow: '0 1px 3px rgba(0,0,0,0.8)' }}
-          data-testid="hero-subtitle"
+          Join the Deployment Roster
+        </button>
+        <button
+          onClick={scrollToClientForm}
+          className="btn-outline"
+          data-testid="hero-request-workers-btn"
         >
-          Pre-vetted, FIFO-ready tradesmen for Alaska's most demanding energy operations.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animation-delay-200">
-          <button
-            onClick={scrollToWorkerForm}
-            className="btn-primary"
-            data-testid="hero-join-roster-btn"
-          >
-            Join the Deployment Roster
-          </button>
-          <button
-            onClick={scrollToClientForm}
-            className="btn-outline"
-            data-testid="hero-request-workers-btn"
-          >
-            Request Workers
-          </button>
-        </div>
+          Request Workers
+        </button>
       </div>
-      <div className="trust-bar animate-fade-in-up animation-delay-300">
-        <p data-testid="trust-bar-text">
-          Deploying certified tradesmen to North Slope operations including Prudhoe Bay, Deadhorse, and the Willow Project corridor
+      <div className="trust-bar" data-testid="trust-bar">
+        <p>
+          <span className="trust-bar-accent">—</span>
+          Deploying certified tradesmen to Prudhoe Bay, Deadhorse, and the Willow Project corridor
         </p>
+      </div>
+    </div>
+  </section>
+);
+
+// Stats Bar - Replaces Map Section
+const StatsBar = () => (
+  <section className="stats-bar" data-testid="stats-bar">
+    <div className="stats-container">
+      <div className="stats-grid">
+        <div className="stat-item" data-testid="stat-deployment">
+          <span className="stat-number">72</span>
+          <span className="stat-label">Hour Deployment</span>
+        </div>
+        <div className="stat-divider" />
+        <div className="stat-item" data-testid="stat-verified">
+          <span className="stat-number">100%</span>
+          <span className="stat-label">NSTC Verified</span>
+        </div>
+        <div className="stat-divider" />
+        <div className="stat-item" data-testid="stat-fifo">
+          <span className="stat-number">FIFO</span>
+          <span className="stat-label">Ready Candidates</span>
+        </div>
       </div>
     </div>
   </section>
@@ -141,36 +154,38 @@ const HeroSection = ({ scrollToWorkerForm, scrollToClientForm }) => (
 
 // Specializations Section
 const SpecializationsSection = () => (
-  <section className="section" data-testid="specializations-section">
-    <h2 className="section-title" data-testid="specializations-title">
-      The North Slope Workforce, Ready to Deploy
-    </h2>
-    <p className="section-subtitle" data-testid="specializations-subtitle">
-      Certified tradesmen across all critical oil & gas disciplines. NSTC-verified and rotation-ready.
-    </p>
-    <div className="trade-grid" data-testid="trade-grid">
-      {trades.map((trade, index) => {
-        const IconComponent = trade.icon;
-        return (
-          <div key={index} className="trade-card" data-testid={`trade-card-${index}`}>
-            <IconComponent className="trade-icon" />
-            <h3 className="trade-name">{trade.name}</h3>
-            <p className="trade-desc">{trade.description}</p>
-            <span className="trade-cert">{trade.certification}</span>
-          </div>
-        );
-      })}
+  <section className="section-dark-3 section-full" data-testid="specializations-section">
+    <div className="section">
+      <h2 className="section-title" data-testid="specializations-title">
+        The North Slope Workforce, <span className="accent-blue">Ready to Deploy</span>
+      </h2>
+      <p className="section-subtitle" data-testid="specializations-subtitle">
+        Certified tradesmen across all critical oil & gas disciplines. NSTC-verified and rotation-ready.
+      </p>
+      <div className="trade-grid" data-testid="trade-grid">
+        {trades.map((trade, index) => {
+          const IconComponent = trade.icon;
+          return (
+            <div key={index} className="trade-card" data-testid={`trade-card-${index}`}>
+              <IconComponent className="trade-icon" />
+              <h3 className="trade-name">{trade.name}</h3>
+              <p className="trade-desc">{trade.description}</p>
+              <span className="trade-cert">{trade.certification}</span>
+            </div>
+          );
+        })}
+      </div>
     </div>
   </section>
 );
 
 // How It Works Section
 const HowItWorksSection = () => (
-  <section className="hiw-section section" data-testid="how-it-works-section">
+  <section className="hiw-section section-full section-dark-2" data-testid="how-it-works-section">
     <div className="hiw-bg" />
-    <div className="hiw-content">
+    <div className="hiw-content section">
       <h2 className="section-title" data-testid="hiw-title">
-        How the Deployment Roster Works
+        How the Deployment Roster <span className="accent-blue">Works</span>
       </h2>
       <div className="hiw-steps">
         <div className="hiw-step" data-testid="hiw-step-1">
@@ -299,9 +314,9 @@ const WorkerFormSection = ({ formRef }) => {
   }
 
   return (
-    <section ref={formRef} className="form-section section" id="worker-form-section" data-testid="worker-form-section">
+    <section ref={formRef} className="form-section section section-dark-2" id="worker-form-section" data-testid="worker-form-section">
       <h2 className="section-title" data-testid="worker-form-title">
-        Get on the North Slope Deployment List
+        Get on the North Slope <span className="accent-orange">Deployment List</span>
       </h2>
       <p className="section-subtitle" data-testid="worker-form-subtitle">
         High-paying FIFO rotations for certified tradesmen. Submit your profile and we'll reach out when a match opens.
@@ -612,9 +627,9 @@ const ClientFormSection = ({ formRef }) => {
   }
 
   return (
-    <section ref={formRef} className="client-section section" id="client-form-section" data-testid="client-form-section">
+    <section ref={formRef} className="client-section section section-dark-3" id="client-form-section" data-testid="client-form-section">
       <h2 className="section-title" data-testid="client-form-title">
-        Need Certified Crew on the Slope — Fast?
+        Need Certified Crew on the Slope — <span className="accent-blue">Fast?</span>
       </h2>
       <p className="section-subtitle" data-testid="client-form-subtitle">
         We maintain a pre-screened bench of NSTC-certified, FIFO-ready tradesmen. No HR bottlenecks. No wasted interviews. Just deployment-ready people.
@@ -789,10 +804,10 @@ const ClientFormSection = ({ formRef }) => {
 
 // Social Feed Section
 const SocialFeedSection = () => (
-  <section className="updates-section" id="north-slope-updates" data-testid="social-feed-section">
-    <div className="updates-container">
+  <section className="updates-section section-dark-1" id="north-slope-updates" data-testid="social-feed-section">
+    <div className="updates-container section">
       <h2 className="section-title" data-testid="social-feed-title">
-        North Slope Intelligence
+        North Slope <span className="accent-blue">Intelligence</span>
       </h2>
       <p className="section-subtitle" data-testid="social-feed-subtitle">
         Live updates on project activity, labor demand, and North Slope operations.
@@ -1028,8 +1043,8 @@ function App() {
         scrollToWorkerForm={scrollToWorkerForm} 
         scrollToClientForm={scrollToClientForm} 
       />
+      <StatsBar />
       <SpecializationsSection />
-      <DeploymentMap />
       <HowItWorksSection />
       <SocialFeedSection />
       <WorkerFormSection formRef={workerFormRef} />
