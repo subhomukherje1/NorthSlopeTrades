@@ -447,18 +447,6 @@ const WorkerFormSection = ({ formRef }) => {
                 />
                 No
               </label>
-              <label className="radio-label">
-                <input
-                  type="radio"
-                  name="nstc_card"
-                  value="in_progress"
-                  checked={formData.nstc_card === 'in_progress'}
-                  onChange={handleInputChange}
-                  className="radio-input"
-                  data-testid="worker-nstc-progress"
-                />
-                In Progress
-              </label>
             </div>
           </div>
           
@@ -802,135 +790,33 @@ const ClientFormSection = ({ formRef }) => {
   );
 };
 
-// Social Feed Section
-const SocialFeedSection = () => (
-  <section className="updates-section section-dark-1" id="north-slope-updates" data-testid="social-feed-section">
-    <div className="updates-container section">
-      <h2 className="section-title" data-testid="social-feed-title">
-        North Slope <span className="accent-blue">Intelligence</span>
-      </h2>
-      <p className="section-subtitle" data-testid="social-feed-subtitle">
-        Live updates on project activity, labor demand, and North Slope operations.
-      </p>
-
-      <div className="social-feeds-grid" data-testid="social-feeds-grid">
-        {/* Twitter/X Feed */}
-        <div className="feed-column" data-testid="twitter-feed">
-          <div className="feed-header">
-            <Twitter className="feed-icon" />
-            <span>@NorthSlopeTrades</span>
-          </div>
-          <div className="manual-posts">
-            <div className="post-card">
-              <div className="post-meta">
-                <span className="post-platform twitter">X / Twitter</span>
-                <span className="post-date">Recently</span>
-              </div>
-              <p className="post-text">
-                Q2 rotations are filling fast. If you're NSTC-certified and ready to work, now's the time to get on the roster. Link in bio.
-              </p>
-              <a 
-                href="https://twitter.com/NorthSlopeTrades" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="post-link"
-              >
-                View on X →
-              </a>
-            </div>
-            <div className="post-card">
-              <div className="post-meta">
-                <span className="post-platform twitter">X / Twitter</span>
-                <span className="post-date">Recently</span>
-              </div>
-              <p className="post-text">
-                Prudhoe Bay operations ramping up. Multiple trades needed: pipefitters, welders, instrumentation techs. DM us or apply through the site.
-              </p>
-              <a 
-                href="https://twitter.com/NorthSlopeTrades" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="post-link"
-              >
-                View on X →
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* LinkedIn Feed */}
-        <div className="feed-column" data-testid="linkedin-feed">
-          <div className="feed-header">
-            <Linkedin className="feed-icon" />
-            <span>North Slope Trades</span>
-          </div>
-          <div className="manual-posts">
-            <div className="post-card">
-              <div className="post-meta">
-                <span className="post-platform linkedin">LinkedIn</span>
-                <span className="post-date">Recently</span>
-              </div>
-              <p className="post-text">
-                We're building the North Slope's most reliable deployment bench. If you hold your NSTC and are available for rotation — get on the list. Link in bio.
-              </p>
-              <a 
-                href="https://linkedin.com/company/northslopetrades" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="post-link"
-              >
-                View on LinkedIn →
-              </a>
-            </div>
-            <div className="post-card">
-              <div className="post-meta">
-                <span className="post-platform linkedin">LinkedIn</span>
-                <span className="post-date">Recently</span>
-              </div>
-              <p className="post-text">
-                The Willow Project construction phase is accelerating. Operators are beginning to source tradesmen for Q2 rotations. If your crew has gaps — reach out now before the rush.
-              </p>
-              <a 
-                href="https://linkedin.com/company/northslopetrades" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="post-link"
-              >
-                View on LinkedIn →
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* CTA below feeds */}
-      <div className="updates-cta" data-testid="social-cta">
-        <p>Follow us for real-time North Slope labor market updates</p>
-        <div className="social-follow-buttons">
-          <a 
-            href="https://twitter.com/NorthSlopeTrades" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="follow-btn twitter"
-            data-testid="follow-twitter-btn"
-          >
-            <Twitter size={16} />
-            Follow on X
-          </a>
-          <a 
-            href="https://linkedin.com/company/northslopetrades" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="follow-btn linkedin"
-            data-testid="follow-linkedin-btn"
-          >
-            <Linkedin size={16} />
-            Follow on LinkedIn
-          </a>
-        </div>
-      </div>
+// Social Tag for Footer (replaces full social feed section)
+const SocialTag = () => (
+  <div className="social-tag" data-testid="social-tag">
+    <span className="social-tag-label">North Slope Intelligence</span>
+    <div className="social-tag-icons">
+      <a 
+        href="https://twitter.com/NorthSlopeTrades" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="social-tag-link"
+        aria-label="Follow on X/Twitter"
+        data-testid="social-twitter-link"
+      >
+        <Twitter size={16} />
+      </a>
+      <a 
+        href="https://linkedin.com/company/northslopetrades" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="social-tag-link"
+        aria-label="Follow on LinkedIn"
+        data-testid="social-linkedin-link"
+      >
+        <Linkedin size={16} />
+      </a>
     </div>
-  </section>
+  </div>
 );
 
 // Blog Section
@@ -1046,11 +932,11 @@ function App() {
       <StatsBar />
       <SpecializationsSection />
       <HowItWorksSection />
-      <SocialFeedSection />
       <WorkerFormSection formRef={workerFormRef} />
       <ClientFormSection formRef={clientFormRef} />
       <BlogSection />
       <Footer />
+      <SocialTag />
       <MobileCTA 
         scrollToWorkerForm={scrollToWorkerForm}
         scrollToClientForm={scrollToClientForm}
