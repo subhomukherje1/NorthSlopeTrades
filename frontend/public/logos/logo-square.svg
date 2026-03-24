@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background -->
+  <rect width="400" height="400" fill="#0A0F1E"/>
+  
+  <!-- Accent line -->
+  <rect x="0" y="360" width="400" height="8" fill="#38BDF8"/>
+  
+  <!-- N Letter -->
+  <text x="200" y="260" 
+        font-family="Arial Black, sans-serif" 
+        font-size="220" 
+        font-weight="900" 
+        fill="#FFFFFF" 
+        text-anchor="middle">N</text>
+  
+  <!-- Tagline -->
+  <text x="200" y="330" 
+        font-family="Arial, sans-serif" 
+        font-size="24" 
+        font-weight="700" 
+        fill="#38BDF8" 
+        text-anchor="middle" 
+        letter-spacing="8">NORTH SLOPE</text>
+</svg>

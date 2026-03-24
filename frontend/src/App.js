@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "@/App.css";
 import axios from "axios";
-import { Phone, Upload, ArrowRight, CheckCircle, Zap, Shield, RefreshCw, Wrench, Flame, Gauge, HardHat, Settings, Cog, Twitter, Linkedin } from "lucide-react";
+import { Phone, Upload, ArrowRight, CheckCircle, Zap, Shield, RefreshCw, Wrench, Flame, Gauge, HardHat, Settings, Cog, Twitter, Linkedin, Facebook } from "lucide-react";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -814,6 +814,16 @@ const SocialTag = () => (
         data-testid="social-linkedin-link"
       >
         <Linkedin size={16} />
+      </a>
+      <a 
+        href="https://facebook.com/NorthSlopeTrades" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="social-tag-link"
+        aria-label="Follow on Facebook"
+        data-testid="social-facebook-link"
+      >
+        <Facebook size={16} />
       </a>
     </div>
   </div>

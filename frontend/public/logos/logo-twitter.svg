@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Twitter/X Profile Picture - Square format (displays as circle) -->
+  <!-- Background -->
+  <rect width="400" height="400" fill="#0A0F1E"/>
+  
+  <!-- Ice Blue ring accent (visible in circular crop) -->
+  <circle cx="200" cy="200" r="195" fill="none" stroke="#38BDF8" stroke-width="10"/>
+  
+  <!-- Large N centered -->
+  <text x="200" y="250" 
+        font-family="Arial Black, sans-serif" 
+        font-size="200" 
+        font-weight="900" 
+        fill="#FFFFFF" 
+        text-anchor="middle">N</text>
+</svg>

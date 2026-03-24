@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1584 396">
+  <!-- LinkedIn Banner - 1584x396 recommended size -->
+  <!-- Background with gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0A0F1E"/>
+      <stop offset="100%" style="stop-color:#0F172A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1584" height="396" fill="url(#bgGradient)"/>
+  
+  <!-- Ice Blue accent bar at bottom -->
+  <rect x="0" y="380" width="1584" height="16" fill="#38BDF8"/>
+  
+  <!-- Logo mark on left -->
+  <text x="120" y="260" 
+        font-family="Arial Black, sans-serif" 
+        font-size="180" 
+        font-weight="900" 
+        fill="#FFFFFF">N</text>
+  
+  <!-- Company name -->
+  <text x="320" y="180" 
+        font-family="Arial, sans-serif" 
+        font-size="72" 
+        font-weight="900" 
+        fill="#FFFFFF" 
+        letter-spacing="4">NORTH SLOPE</text>
+  <text x="320" y="260" 
+        font-family="Arial, sans-serif" 
+        font-size="72" 
+        font-weight="900" 
+        fill="#38BDF8" 
+        letter-spacing="4">TRADES</text>
+  
+  <!-- Tagline -->
+  <text x="320" y="320" 
+        font-family="Arial, sans-serif" 
+        font-size="24" 
+        font-weight="600" 
+        fill="#94A3B8" 
+        letter-spacing="2">RAPID LABOR DEPLOYMENT FOR ALASKA'S NORTH SLOPE</text>
+  
+  <!-- Stats on right side -->
+  <text x="1200" y="160" 
+        font-family="Arial Black, sans-serif" 
+        font-size="64" 
+        font-weight="900" 
+        fill="#38BDF8" 
+        text-anchor="middle">72</text>
+  <text x="1200" y="200" 
+        font-family="Arial, sans-serif" 
+        font-size="18" 
+        font-weight="600" 
+        fill="#94A3B8" 
+        text-anchor="middle" 
+        letter-spacing="2">HOUR DEPLOYMENT</text>
+  
+  <text x="1400" y="160" 
+        font-family="Arial Black, sans-serif" 
+        font-size="64" 
+        font-weight="900" 
+        fill="#F97316" 
+        text-anchor="middle">100%</text>
+  <text x="1400" y="200" 
+        font-family="Arial, sans-serif" 
+        font-size="18" 
+        font-weight="600" 
+        fill="#94A3B8" 
+        text-anchor="middle" 
+        letter-spacing="2">NSTC VERIFIED</text>
+</svg>

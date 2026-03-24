@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 312">
+  <!-- Facebook Cover Photo - 820x312 recommended size -->
+  <!-- Background with gradient -->
+  <defs>
+    <linearGradient id="fbGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0A0F1E"/>
+      <stop offset="100%" style="stop-color:#0F172A"/>
+    </linearGradient>
+  </defs>
+  <rect width="820" height="312" fill="url(#fbGradient)"/>
+  
+  <!-- Ice Blue accent bar at bottom -->
+  <rect x="0" y="300" width="820" height="12" fill="#38BDF8"/>
+  
+  <!-- Company name centered -->
+  <text x="410" y="130" 
+        font-family="Arial, sans-serif" 
+        font-size="56" 
+        font-weight="900" 
+        fill="#FFFFFF" 
+        text-anchor="middle"
+        letter-spacing="4">NORTH SLOPE</text>
+  <text x="410" y="200" 
+        font-family="Arial, sans-serif" 
+        font-size="56" 
+        font-weight="900" 
+        fill="#38BDF8" 
+        text-anchor="middle"
+        letter-spacing="4">TRADES</text>
+  
+  <!-- Tagline -->
+  <text x="410" y="260" 
+        font-family="Arial, sans-serif" 
+        font-size="18" 
+        font-weight="600" 
+        fill="#94A3B8" 
+        text-anchor="middle"
+        letter-spacing="2">RAPID LABOR DEPLOYMENT FOR ALASKA'S NORTH SLOPE</text>
+</svg>

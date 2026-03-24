@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- LinkedIn Company Page Logo - Square format -->
+  <!-- Background -->
+  <rect width="400" height="400" fill="#0A0F1E"/>
+  
+  <!-- Ice Blue accent bar at bottom -->
+  <rect x="0" y="370" width="400" height="30" fill="#38BDF8"/>
+  
+  <!-- Large N -->
+  <text x="200" y="220" 
+        font-family="Arial Black, sans-serif" 
+        font-size="180" 
+        font-weight="900" 
+        fill="#FFFFFF" 
+        text-anchor="middle">N</text>
+  
+  <!-- NORTH SLOPE text -->
+  <text x="200" y="290" 
+        font-family="Arial, sans-serif" 
+        font-size="28" 
+        font-weight="800" 
+        fill="#FFFFFF" 
+        text-anchor="middle" 
+        letter-spacing="6">NORTH SLOPE</text>
+  
+  <!-- TRADES text -->
+  <text x="200" y="330" 
+        font-family="Arial, sans-serif" 
+        font-size="28" 
+        font-weight="800" 
+        fill="#38BDF8" 
+        text-anchor="middle" 
+        letter-spacing="6">TRADES</text>
+</svg>
