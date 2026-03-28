@@ -1,7 +1,33 @@
 import { useState, useEffect, useRef } from "react";
 import "@/App.css";
 import axios from "axios";
-import { Phone, Upload, ArrowRight, CheckCircle, Zap, Shield, RefreshCw, Wrench, Flame, Gauge, HardHat, Settings, Cog, Twitter, Linkedin, Facebook } from "lucide-react";
+import emailjs from "@emailjs/browser";
+import {
+  Phone,
+  Upload,
+  ArrowRight,
+  CheckCircle,
+  Zap,
+  Shield,
+  RefreshCw,
+  Wrench,
+  Flame,
+  Gauge,
+  HardHat,
+  Settings,
+  Cog,
+  Twitter,
+  Linkedin,
+  Facebook,
+} from "lucide-react";
+
+// EmailJS config (set values in .env)
+const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+const EMAILJS_WORKER_TEMPLATE =
+  process.env.REACT_APP_EMAILJS_WORKER_TEMPLATE_ID;
+const EMAILJS_CLIENT_TEMPLATE =
+  process.env.REACT_APP_EMAILJS_CLIENT_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -10,11 +36,11 @@ const API = `${BACKEND_URL}/api`;
 function getUTMParams() {
   const params = new URLSearchParams(window.location.search);
   return {
-    utm_source: params.get('utm_source') || '',
-    utm_medium: params.get('utm_medium') || '',
-    utm_campaign: params.get('utm_campaign') || '',
-    utm_content: params.get('utm_content') || '',
-    utm_term: params.get('utm_term') || ''
+    utm_source: params.get("utm_source") || "",
+    utm_medium: params.get("utm_medium") || "",
+    utm_campaign: params.get("utm_campaign") || "",
+    utm_content: params.get("utm_content") || "",
+    utm_term: params.get("utm_term") || "",
   };
 }
 
@@ -24,57 +50,62 @@ const trades = [
     name: "Pipefitters",
     description: "Pipe installation, maintenance, and repair",
     certification: "NSTC card required",
-    icon: Wrench
+    icon: Wrench,
   },
   {
     name: "Welders",
     description: "Structural and pipeline welding",
     certification: "NSTC card + CWB/AWS cert",
-    icon: Flame
+    icon: Flame,
   },
   {
     name: "Heavy Equipment Operators",
     description: "Excavators, dozers, cranes",
     certification: "NSTC card + equipment tickets",
-    icon: Gauge
+    icon: Gauge,
   },
   {
     name: "Instrumentation Techs",
     description: "Instrumentation and controls",
     certification: "NSTC card required",
-    icon: Settings
+    icon: Settings,
   },
   {
     name: "Roustabouts",
     description: "General rig labor and support",
     certification: "NSTC card required",
-    icon: HardHat
+    icon: HardHat,
   },
   {
     name: "Heavy Duty Mechanics",
     description: "Diesel and heavy equipment repair",
     certification: "NSTC card + trade ticket",
-    icon: Cog
-  }
+    icon: Cog,
+  },
 ];
 
 // Blog placeholder data
 const blogPosts = [
   {
     tag: "Project Update",
-    title: "Willow Project: What the 2025 Construction Phase Means for Labor Demand",
-    excerpt: "ConocoPhillips' Willow Project is entering its most labor-intensive phase. Here's what tradesmen need to know."
+    title:
+      "Willow Project: What the 2025 Construction Phase Means for Labor Demand",
+    excerpt:
+      "ConocoPhillips' Willow Project is entering its most labor-intensive phase. Here's what tradesmen need to know.",
   },
   {
     tag: "Certification Guide",
     title: "NSTC Certification: The Complete Guide for Lower 48 Workers",
-    excerpt: "Everything you need to know about getting your North Slope Training Cooperative card before your first rotation."
+    excerpt:
+      "Everything you need to know about getting your North Slope Training Cooperative card before your first rotation.",
   },
   {
     tag: "Industry",
-    title: "FIFO Rotations Explained: What to Expect on Your First North Slope Assignment",
-    excerpt: "Fly-in fly-out work is different from anything else in the trades. Here's an honest look at what the schedule actually looks like."
-  }
+    title:
+      "FIFO Rotations Explained: What to Expect on Your First North Slope Assignment",
+    excerpt:
+      "Fly-in fly-out work is different from anything else in the trades. Here's an honest look at what the schedule actually looks like.",
+  },
 ];
 
 // Header Component
@@ -83,10 +114,10 @@ const Header = () => (
     <div className="logo" data-testid="logo">
       North <span>Slope</span> Trades
     </div>
-    <a href="tel:+1XXXXXXXXXX" className="header-phone" data-testid="header-phone">
+    {/* <a href="tel:+1XXXXXXXXXX" className="header-phone" data-testid="header-phone">
       <Phone size={18} />
       <span>+1 (XXX) XXX-XXXX</span>
-    </a>
+    </a> */}
   </header>
 );
 
@@ -100,7 +131,8 @@ const HeroSection = ({ scrollToWorkerForm, scrollToClientForm }) => (
         <span className="hero-headline-accent">Deployed in 72 Hours.</span>
       </h1>
       <p className="hero-subheadline" data-testid="hero-subtitle">
-        Pre-vetted, FIFO-ready tradesmen for Alaska's most demanding energy operations.
+        Pre-vetted, FIFO-ready tradesmen for Alaska's most demanding energy
+        operations.
       </p>
       <div className="hero-buttons">
         <button
@@ -121,7 +153,8 @@ const HeroSection = ({ scrollToWorkerForm, scrollToClientForm }) => (
       <div className="trust-bar" data-testid="trust-bar">
         <p>
           <span className="trust-bar-accent">—</span>
-          Deploying certified tradesmen to Prudhoe Bay, Deadhorse, and the Willow Project corridor
+          Deploying certified tradesmen to Prudhoe Bay, Deadhorse, and the
+          Willow Project corridor
         </p>
       </div>
     </div>
@@ -154,19 +187,28 @@ const StatsBar = () => (
 
 // Specializations Section
 const SpecializationsSection = () => (
-  <section className="section-dark-3 section-full" data-testid="specializations-section">
+  <section
+    className="section-dark-3 section-full"
+    data-testid="specializations-section"
+  >
     <div className="section">
       <h2 className="section-title" data-testid="specializations-title">
-        The North Slope Workforce, <span className="accent-blue">Ready to Deploy</span>
+        The North Slope Workforce,{" "}
+        <span className="accent-blue">Ready to Deploy</span>
       </h2>
       <p className="section-subtitle" data-testid="specializations-subtitle">
-        Certified tradesmen across all critical oil & gas disciplines. NSTC-verified and rotation-ready.
+        Certified tradesmen across all critical oil & gas disciplines.
+        NSTC-verified and rotation-ready.
       </p>
       <div className="trade-grid" data-testid="trade-grid">
         {trades.map((trade, index) => {
           const IconComponent = trade.icon;
           return (
-            <div key={index} className="trade-card" data-testid={`trade-card-${index}`}>
+            <div
+              key={index}
+              className="trade-card"
+              data-testid={`trade-card-${index}`}
+            >
               <IconComponent className="trade-icon" />
               <h3 className="trade-name">{trade.name}</h3>
               <p className="trade-desc">{trade.description}</p>
@@ -181,7 +223,10 @@ const SpecializationsSection = () => (
 
 // How It Works Section
 const HowItWorksSection = () => (
-  <section className="hiw-section section-full section-dark-2" data-testid="how-it-works-section">
+  <section
+    className="hiw-section section-full section-dark-2"
+    data-testid="how-it-works-section"
+  >
     <div className="hiw-bg" />
     <div className="hiw-content section">
       <h2 className="section-title" data-testid="hiw-title">
@@ -192,7 +237,8 @@ const HowItWorksSection = () => (
           <div className="hiw-step-number">1</div>
           <h3 className="hiw-step-title">Submit Your Profile</h3>
           <p className="hiw-step-desc">
-            Fill out the form below with your trade, certifications, and availability
+            Fill out the form below with your trade, certifications, and
+            availability
           </p>
         </div>
         <div className="hiw-step" data-testid="hiw-step-2">
@@ -206,7 +252,8 @@ const HowItWorksSection = () => (
           <div className="hiw-step-number">3</div>
           <h3 className="hiw-step-title">Get Matched to a Rotation</h3>
           <p className="hiw-step-desc">
-            When an operator needs your trade, we reach out with a real opportunity
+            When an operator needs your trade, we reach out with a real
+            opportunity
           </p>
         </div>
       </div>
@@ -217,29 +264,29 @@ const HowItWorksSection = () => (
 // Worker Form Section
 const WorkerFormSection = ({ formRef }) => {
   const [formData, setFormData] = useState({
-    full_name: '',
-    email: '',
-    phone: '',
-    primary_trade: '',
-    years_experience: '',
-    nstc_card: '',
-    anchorage_travel: '',
-    availability: '',
-    resume_filename: ''
+    full_name: "",
+    email: "",
+    phone: "",
+    primary_trade: "",
+    years_experience: "",
+    nstc_card: "",
+    anchorage_travel: "",
+    availability: "",
+    resume_filename: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showKnockout, setShowKnockout] = useState(false);
-  const [fileName, setFileName] = useState('');
+  const [fileName, setFileName] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
     // Check knockout conditions
-    if (name === 'nstc_card' || name === 'anchorage_travel') {
+    if (name === "nstc_card" || name === "anchorage_travel") {
       const newData = { ...formData, [name]: value };
-      if (newData.nstc_card === 'no' && newData.anchorage_travel === 'no') {
+      if (newData.nstc_card === "no" && newData.anchorage_travel === "no") {
         setShowKnockout(true);
       } else {
         setShowKnockout(false);
@@ -250,21 +297,24 @@ const WorkerFormSection = ({ formRef }) => {
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       setFileName(e.target.files[0].name);
-      setFormData(prev => ({ ...prev, resume_filename: e.target.files[0].name }));
+      setFormData((prev) => ({
+        ...prev,
+        resume_filename: e.target.files[0].name,
+      }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Knockout check
-    if (formData.nstc_card === 'no' && formData.anchorage_travel === 'no') {
+    if (formData.nstc_card === "no" && formData.anchorage_travel === "no") {
       setShowKnockout(true);
       // Fire GA4 knockout event
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'worker_knockout', {
-          'event_category': 'Lead Capture',
-          'event_label': 'Disqualified — Missing NSTC or Travel'
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "worker_knockout", {
+          event_category: "Lead Capture",
+          event_label: "Disqualified — Missing NSTC or Travel",
         });
       }
       return;
@@ -273,27 +323,40 @@ const WorkerFormSection = ({ formRef }) => {
     setIsSubmitting(true);
 
     try {
-      const utmParams = getUTMParams();
-      const payload = { ...formData, ...utmParams };
-      
-      await axios.post(`${API}/worker-submission`, payload);
-      
+      // Send EmailJS notification
+      await emailjs.send(
+        "service_eghnbyh",
+        "template_gbmyxuq",
+        {
+          full_name: formData.full_name,
+          email: formData.email,
+          phone: formData.phone,
+          primary_trade: formData.primary_trade,
+          years_experience: formData.years_experience,
+          nstc_card: formData.nstc_card,
+          anchorage_travel: formData.anchorage_travel,
+          availability: formData.availability,
+          resume_filename: formData.resume_filename || "Not provided",
+        },
+        "2LQupVOaO-zlqxqH2",
+      );
+
       // Fire GA4 success event
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'worker_form_submit', {
-          'event_category': 'Lead Capture',
-          'event_label': 'Worker Intake Form'
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "worker_form_submit", {
+          event_category: "Lead Capture",
+          event_label: "Worker Intake Form",
         });
       }
       // Fire Facebook Pixel event
-      if (typeof window.fbq === 'function') {
-        window.fbq('track', 'Lead', { content_name: 'Worker Intake Form' });
+      if (typeof window.fbq === "function") {
+        window.fbq("track", "Lead", { content_name: "Worker Intake Form" });
       }
-      
+
       setIsSubmitted(true);
     } catch (error) {
-      console.error('Form submission error:', error);
-      alert('There was an error submitting your form. Please try again.');
+      console.error("Form submission error:", error);
+      alert("There was an error submitting your form. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -301,12 +364,18 @@ const WorkerFormSection = ({ formRef }) => {
 
   if (isSubmitted) {
     return (
-      <section ref={formRef} className="form-section section" id="worker-form-section" data-testid="worker-form-section">
+      <section
+        ref={formRef}
+        className="form-section section"
+        id="worker-form-section"
+        data-testid="worker-form-section"
+      >
         <div className="form-success" data-testid="worker-form-success">
           <CheckCircle className="form-success-icon" />
           <h3 className="form-success-title">You're on the list</h3>
           <p className="form-success-text">
-            We'll be in touch when a North Slope match opens up. In the meantime, make sure your NSTC card is current.
+            We'll be in touch when a North Slope match opens up. In the
+            meantime, make sure your NSTC card is current.
           </p>
         </div>
       </section>
@@ -314,18 +383,32 @@ const WorkerFormSection = ({ formRef }) => {
   }
 
   return (
-    <section ref={formRef} className="form-section section section-dark-2" id="worker-form-section" data-testid="worker-form-section">
+    <section
+      ref={formRef}
+      className="form-section section section-dark-2"
+      id="worker-form-section"
+      data-testid="worker-form-section"
+    >
       <h2 className="section-title" data-testid="worker-form-title">
-        Get on the North Slope <span className="accent-orange">Deployment List</span>
+        Get on the North Slope{" "}
+        <span className="accent-orange">Deployment List</span>
       </h2>
       <p className="section-subtitle" data-testid="worker-form-subtitle">
-        High-paying FIFO rotations for certified tradesmen. Submit your profile and we'll reach out when a match opens.
+        High-paying FIFO rotations for certified tradesmen. Submit your profile
+        and we'll reach out when a match opens.
       </p>
-      
-      <form id="worker-form" className="form-container" onSubmit={handleSubmit} data-testid="worker-form">
+
+      <form
+        id="worker-form"
+        className="form-container"
+        onSubmit={handleSubmit}
+        data-testid="worker-form"
+      >
         <div className="form-grid">
           <div className="form-group">
-            <label className="form-label">Full Name <span>*</span></label>
+            <label className="form-label">
+              Full Name <span>*</span>
+            </label>
             <input
               type="text"
               name="full_name"
@@ -336,9 +419,11 @@ const WorkerFormSection = ({ formRef }) => {
               data-testid="worker-full-name"
             />
           </div>
-          
+
           <div className="form-group">
-            <label className="form-label">Email <span>*</span></label>
+            <label className="form-label">
+              Email <span>*</span>
+            </label>
             <input
               type="email"
               name="email"
@@ -349,9 +434,11 @@ const WorkerFormSection = ({ formRef }) => {
               data-testid="worker-email"
             />
           </div>
-          
+
           <div className="form-group">
-            <label className="form-label">Phone <span>*</span></label>
+            <label className="form-label">
+              Phone <span>*</span>
+            </label>
             <input
               type="tel"
               name="phone"
@@ -362,9 +449,11 @@ const WorkerFormSection = ({ formRef }) => {
               data-testid="worker-phone"
             />
           </div>
-          
+
           <div className="form-group">
-            <label className="form-label">Primary Trade <span>*</span></label>
+            <label className="form-label">
+              Primary Trade <span>*</span>
+            </label>
             <select
               name="primary_trade"
               value={formData.primary_trade}
@@ -377,14 +466,18 @@ const WorkerFormSection = ({ formRef }) => {
               <option value="pipefitter">Pipefitter</option>
               <option value="welder">Welder</option>
               <option value="instrumentation_tech">Instrumentation Tech</option>
-              <option value="heavy_equipment_operator">Heavy Equipment Operator</option>
+              <option value="heavy_equipment_operator">
+                Heavy Equipment Operator
+              </option>
               <option value="heavy_duty_mechanic">Heavy Duty Mechanic</option>
               <option value="roustabout">Roustabout</option>
             </select>
           </div>
-          
+
           <div className="form-group">
-            <label className="form-label">Years of Experience <span>*</span></label>
+            <label className="form-label">
+              Years of Experience <span>*</span>
+            </label>
             <select
               name="years_experience"
               value={formData.years_experience}
@@ -400,9 +493,11 @@ const WorkerFormSection = ({ formRef }) => {
               <option value="10+">10+ years</option>
             </select>
           </div>
-          
+
           <div className="form-group">
-            <label className="form-label">Availability <span>*</span></label>
+            <label className="form-label">
+              Availability <span>*</span>
+            </label>
             <select
               name="availability"
               value={formData.availability}
@@ -418,16 +513,18 @@ const WorkerFormSection = ({ formRef }) => {
               <option value="1_month_plus">1 month+</option>
             </select>
           </div>
-          
+
           <div className="form-group full-width">
-            <label className="form-label">Do you hold a current, valid NSTC card? <span>*</span></label>
+            <label className="form-label">
+              Do you hold a current, valid NSTC card? <span>*</span>
+            </label>
             <div className="radio-group">
               <label className="radio-label">
                 <input
                   type="radio"
                   name="nstc_card"
                   value="yes"
-                  checked={formData.nstc_card === 'yes'}
+                  checked={formData.nstc_card === "yes"}
                   onChange={handleInputChange}
                   className="radio-input"
                   required
@@ -440,7 +537,7 @@ const WorkerFormSection = ({ formRef }) => {
                   type="radio"
                   name="nstc_card"
                   value="no"
-                  checked={formData.nstc_card === 'no'}
+                  checked={formData.nstc_card === "no"}
                   onChange={handleInputChange}
                   className="radio-input"
                   data-testid="worker-nstc-no"
@@ -449,16 +546,19 @@ const WorkerFormSection = ({ formRef }) => {
               </label>
             </div>
           </div>
-          
+
           <div className="form-group full-width">
-            <label className="form-label">Are you willing to fund your own travel to Anchorage as Point of Hire? <span>*</span></label>
+            <label className="form-label">
+              Are you willing to fund your own travel to Anchorage as Point of
+              Hire? <span>*</span>
+            </label>
             <div className="radio-group">
               <label className="radio-label">
                 <input
                   type="radio"
                   name="anchorage_travel"
                   value="yes"
-                  checked={formData.anchorage_travel === 'yes'}
+                  checked={formData.anchorage_travel === "yes"}
                   onChange={handleInputChange}
                   className="radio-input"
                   required
@@ -471,7 +571,7 @@ const WorkerFormSection = ({ formRef }) => {
                   type="radio"
                   name="anchorage_travel"
                   value="no"
-                  checked={formData.anchorage_travel === 'no'}
+                  checked={formData.anchorage_travel === "no"}
                   onChange={handleInputChange}
                   className="radio-input"
                   data-testid="worker-travel-no"
@@ -480,9 +580,11 @@ const WorkerFormSection = ({ formRef }) => {
               </label>
             </div>
           </div>
-          
+
           <div className="form-group full-width">
-            <label className="form-label">Resume / Certifications (optional)</label>
+            <label className="form-label">
+              Resume / Certifications (optional)
+            </label>
             <div className="file-upload">
               <input
                 type="file"
@@ -493,20 +595,22 @@ const WorkerFormSection = ({ formRef }) => {
               />
               <div className="file-upload-label">
                 <Upload size={20} />
-                {fileName || 'Upload Resume & Tickets'}
+                {fileName || "Upload Resume & Tickets"}
               </div>
             </div>
           </div>
         </div>
-        
+
         {showKnockout && (
           <div className="knockout-message" data-testid="knockout-message">
             <p>
-              These roles require a valid NSTC card and travel to Anchorage as Point of Hire. We'd encourage you to get certified and apply again — we'd love to have you on the roster.
+              These roles require a valid NSTC card and travel to Anchorage as
+              Point of Hire. We'd encourage you to get certified and apply again
+              — we'd love to have you on the roster.
             </p>
           </div>
         )}
-        
+
         <div className="form-submit">
           <button
             type="submit"
@@ -515,10 +619,11 @@ const WorkerFormSection = ({ formRef }) => {
             disabled={isSubmitting || showKnockout}
             data-testid="worker-submit-btn"
           >
-            {isSubmitting ? <span className="spinner" /> : 'Submit My Profile'}
+            {isSubmitting ? <span className="spinner" /> : "Submit My Profile"}
           </button>
           <p className="form-privacy" data-testid="worker-form-privacy">
-            Your information is never shared without your consent. No spam calls.
+            Your information is never shared without your consent. No spam
+            calls.
           </p>
         </div>
       </form>
@@ -529,28 +634,28 @@ const WorkerFormSection = ({ formRef }) => {
 // Client Form Section
 const ClientFormSection = ({ formRef }) => {
   const [formData, setFormData] = useState({
-    company_name: '',
-    contact_name: '',
-    role_title: '',
+    company_name: "",
+    contact_name: "",
+    role_title: "",
     trades_needed: [],
-    workers_required: '',
-    project_location: '',
-    start_date: '',
-    email: '',
-    phone: ''
+    workers_required: "",
+    project_location: "",
+    start_date: "",
+    email: "",
+    phone: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleTradeChange = (trade) => {
-    setFormData(prev => {
+    setFormData((prev) => {
       const trades = prev.trades_needed.includes(trade)
-        ? prev.trades_needed.filter(t => t !== trade)
+        ? prev.trades_needed.filter((t) => t !== trade)
         : [...prev.trades_needed, trade];
       return { ...prev, trades_needed: trades };
     });
@@ -561,48 +666,62 @@ const ClientFormSection = ({ formRef }) => {
     setIsSubmitting(true);
 
     try {
-      const utmParams = getUTMParams();
-      const payload = { 
-        ...formData, 
-        workers_required: parseInt(formData.workers_required) || 0,
-        ...utmParams 
-      };
-      
-      await axios.post(`${API}/client-submission`, payload);
-      
+      // Send EmailJS notification
+      await emailjs.send(
+        "service_eghnbyh",
+        "template_xnkudl6",
+        {
+          company_name: formData.company_name,
+          contact_name: formData.contact_name,
+          role_title: formData.role_title,
+          trades_needed: formData.trades_needed.join(", ") || "Not specified",
+          workers_required: formData.workers_required || "Not specified",
+          project_location: formData.project_location || "Not specified",
+          start_date: formData.start_date || "Not specified",
+          email: formData.email,
+          phone: formData.phone,
+        },
+        "2LQupVOaO-zlqxqH2",
+      );
+
       // Fire GA4 success event
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'client_form_submit', {
-          'event_category': 'Lead Capture',
-          'event_label': 'Client Request Form'
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "client_form_submit", {
+          event_category: "Lead Capture",
+          event_label: "Client Request Form",
         });
       }
       // Fire Facebook Pixel event
-      if (typeof window.fbq === 'function') {
-        window.fbq('track', 'Lead', { content_name: 'Client Request Form' });
+      if (typeof window.fbq === "function") {
+        window.fbq("track", "Lead", { content_name: "Client Request Form" });
       }
-      
+
       setIsSubmitted(true);
     } catch (error) {
-      console.error('Form submission error:', error);
-      alert('There was an error submitting your request. Please try again.');
+      console.error("Form submission error:", error);
+      alert("There was an error submitting your request. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const tradeOptions = [
-    'Pipefitter',
-    'Welder',
-    'Instrumentation Tech',
-    'Heavy Equipment Operator',
-    'Heavy Duty Mechanic',
-    'Roustabout'
+    "Pipefitter",
+    "Welder",
+    "Instrumentation Tech",
+    "Heavy Equipment Operator",
+    "Heavy Duty Mechanic",
+    "Roustabout",
   ];
 
   if (isSubmitted) {
     return (
-      <section ref={formRef} className="client-section section" id="client-form-section" data-testid="client-form-section">
+      <section
+        ref={formRef}
+        className="client-section section"
+        id="client-form-section"
+        data-testid="client-form-section"
+      >
         <div className="form-success" data-testid="client-form-success">
           <CheckCircle className="form-success-icon" />
           <h3 className="form-success-title">Request Received</h3>
@@ -615,45 +734,67 @@ const ClientFormSection = ({ formRef }) => {
   }
 
   return (
-    <section ref={formRef} className="client-section section section-dark-3" id="client-form-section" data-testid="client-form-section">
+    <section
+      ref={formRef}
+      className="client-section section section-dark-3"
+      id="client-form-section"
+      data-testid="client-form-section"
+    >
       <h2 className="section-title" data-testid="client-form-title">
-        Need Certified Crew on the Slope — <span className="accent-blue">Fast?</span>
+        Need Certified Crew on the Slope —{" "}
+        <span className="accent-blue">Fast?</span>
       </h2>
       <p className="section-subtitle" data-testid="client-form-subtitle">
-        We maintain a pre-screened bench of NSTC-certified, FIFO-ready tradesmen. No HR bottlenecks. No wasted interviews. Just deployment-ready people.
+        We maintain a pre-screened bench of NSTC-certified, FIFO-ready
+        tradesmen. No HR bottlenecks. No wasted interviews. Just
+        deployment-ready people.
       </p>
       <p className="bench-signal" data-testid="bench-signal">
-        <CheckCircle size={16} /> Bench currently active — last worker placement: <span>recently</span>
+        <CheckCircle size={16} /> Bench currently active — last worker
+        placement: <span>recently</span>
       </p>
-      
+
       <div className="client-values" data-testid="client-values">
         <div className="client-value">
           <Zap className="client-value-icon" />
           <div>
             <h4 className="client-value-title">24–72 Hour Mobilization</h4>
-            <p className="client-value-desc">Deployment-ready candidates, not database entries</p>
+            <p className="client-value-desc">
+              Deployment-ready candidates, not database entries
+            </p>
           </div>
         </div>
         <div className="client-value">
           <Shield className="client-value-icon" />
           <div>
             <h4 className="client-value-title">Pre-Screened & Certified</h4>
-            <p className="client-value-desc">NSTC verified before we ever pitch a name</p>
+            <p className="client-value-desc">
+              NSTC verified before we ever pitch a name
+            </p>
           </div>
         </div>
         <div className="client-value">
           <RefreshCw className="client-value-icon" />
           <div>
             <h4 className="client-value-title">FIFO-Ready</h4>
-            <p className="client-value-desc">Candidates familiar with rotational schedules and remote sites</p>
+            <p className="client-value-desc">
+              Candidates familiar with rotational schedules and remote sites
+            </p>
           </div>
         </div>
       </div>
-      
-      <form id="client-form" className="form-container" onSubmit={handleSubmit} data-testid="client-form">
+
+      <form
+        id="client-form"
+        className="form-container"
+        onSubmit={handleSubmit}
+        data-testid="client-form"
+      >
         <div className="form-grid">
           <div className="form-group">
-            <label className="form-label">Company Name <span>*</span></label>
+            <label className="form-label">
+              Company Name <span>*</span>
+            </label>
             <input
               type="text"
               name="company_name"
@@ -664,9 +805,11 @@ const ClientFormSection = ({ formRef }) => {
               data-testid="client-company"
             />
           </div>
-          
+
           <div className="form-group">
-            <label className="form-label">Your Name <span>*</span></label>
+            <label className="form-label">
+              Your Name <span>*</span>
+            </label>
             <input
               type="text"
               name="contact_name"
@@ -677,9 +820,11 @@ const ClientFormSection = ({ formRef }) => {
               data-testid="client-name"
             />
           </div>
-          
+
           <div className="form-group">
-            <label className="form-label">Your Role / Title <span>*</span></label>
+            <label className="form-label">
+              Your Role / Title <span>*</span>
+            </label>
             <input
               type="text"
               name="role_title"
@@ -690,7 +835,7 @@ const ClientFormSection = ({ formRef }) => {
               data-testid="client-role"
             />
           </div>
-          
+
           <div className="form-group">
             <label className="form-label">Number of Workers Required</label>
             <input
@@ -703,9 +848,11 @@ const ClientFormSection = ({ formRef }) => {
               data-testid="client-workers"
             />
           </div>
-          
+
           <div className="form-group full-width">
-            <label className="form-label">Trade(s) Needed <span>*</span></label>
+            <label className="form-label">
+              Trade(s) Needed <span>*</span>
+            </label>
             <div className="checkbox-group">
               {tradeOptions.map((trade, index) => (
                 <label key={index} className="checkbox-label">
@@ -721,7 +868,7 @@ const ClientFormSection = ({ formRef }) => {
               ))}
             </div>
           </div>
-          
+
           <div className="form-group">
             <label className="form-label">Project / Site Location</label>
             <input
@@ -734,7 +881,7 @@ const ClientFormSection = ({ formRef }) => {
               data-testid="client-location"
             />
           </div>
-          
+
           <div className="form-group">
             <label className="form-label">Estimated Start Date</label>
             <input
@@ -746,9 +893,11 @@ const ClientFormSection = ({ formRef }) => {
               data-testid="client-start-date"
             />
           </div>
-          
+
           <div className="form-group">
-            <label className="form-label">Email <span>*</span></label>
+            <label className="form-label">
+              Email <span>*</span>
+            </label>
             <input
               type="email"
               name="email"
@@ -759,9 +908,11 @@ const ClientFormSection = ({ formRef }) => {
               data-testid="client-email"
             />
           </div>
-          
+
           <div className="form-group">
-            <label className="form-label">Phone <span>*</span></label>
+            <label className="form-label">
+              Phone <span>*</span>
+            </label>
             <input
               type="tel"
               name="phone"
@@ -773,7 +924,7 @@ const ClientFormSection = ({ formRef }) => {
             />
           </div>
         </div>
-        
+
         <div className="form-submit">
           <button
             type="submit"
@@ -782,7 +933,11 @@ const ClientFormSection = ({ formRef }) => {
             disabled={isSubmitting}
             data-testid="client-submit-btn"
           >
-            {isSubmitting ? <span className="spinner" /> : 'Submit a Crew Request'}
+            {isSubmitting ? (
+              <span className="spinner" />
+            ) : (
+              "Submit a Crew Request"
+            )}
           </button>
         </div>
       </form>
@@ -795,9 +950,9 @@ const SocialTag = () => (
   <div className="social-tag" data-testid="social-tag">
     <span className="social-tag-label">North Slope Intelligence</span>
     <div className="social-tag-icons">
-      <a 
-        href="https://twitter.com/NorthSlopeTrades" 
-        target="_blank" 
+      <a
+        href="https://x.com/northslopejobs?s=21"
+        target="_blank"
         rel="noopener noreferrer"
         className="social-tag-link"
         aria-label="Follow on X/Twitter"
@@ -805,9 +960,9 @@ const SocialTag = () => (
       >
         <Twitter size={16} />
       </a>
-      <a 
-        href="https://linkedin.com/company/northslopetrades" 
-        target="_blank" 
+      <a
+        href="https://www.linkedin.com/company/north-slope-trades/"
+        target="_blank"
         rel="noopener noreferrer"
         className="social-tag-link"
         aria-label="Follow on LinkedIn"
@@ -815,9 +970,9 @@ const SocialTag = () => (
       >
         <Linkedin size={16} />
       </a>
-      <a 
-        href="https://facebook.com/NorthSlopeTrades" 
-        target="_blank" 
+      <a
+        href="https://www.facebook.com/people/North-Slope-Trades/61575334703802/?mibextid=wwXIfr&rdid=bYAwojHhONBqB6ey&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1ar6CxbWJz%2F%3Fmibextid%3DwwXIfr"
+        target="_blank"
         rel="noopener noreferrer"
         className="social-tag-link"
         aria-label="Follow on Facebook"
@@ -841,7 +996,11 @@ const BlogSection = () => (
     {/* Blog cards — replace with CMS or dynamic content when ready */}
     <div className="blog-grid" data-testid="blog-grid">
       {blogPosts.map((post, index) => (
-        <article key={index} className="blog-card" data-testid={`blog-card-${index}`}>
+        <article
+          key={index}
+          className="blog-card"
+          data-testid={`blog-card-${index}`}
+        >
           <div className="blog-card-content">
             <span className="blog-tag">{post.tag}</span>
             <h3 className="blog-title">{post.title}</h3>
@@ -870,12 +1029,20 @@ const Footer = () => (
           </p>
         </div>
         <div className="footer-contact">
-          <a href="mailto:hello@northslopetrades.com" className="footer-email" data-testid="footer-email">
+          <a
+            href="mailto:hello@northslopetrades.com"
+            className="footer-email"
+            data-testid="footer-email"
+          >
             hello@northslopetrades.com
           </a>
           <div className="footer-links">
-            <a href="#" className="footer-link" data-testid="footer-privacy">Privacy Policy</a>
-            <a href="#" className="footer-link" data-testid="footer-terms">Terms of Service</a>
+            <a href="#" className="footer-link" data-testid="footer-privacy">
+              Privacy Policy
+            </a>
+            <a href="#" className="footer-link" data-testid="footer-terms">
+              Terms of Service
+            </a>
           </div>
         </div>
       </div>
@@ -890,11 +1057,22 @@ const Footer = () => (
 
 // Mobile CTA Component
 const MobileCTA = ({ scrollToWorkerForm, scrollToClientForm, isHidden }) => (
-  <div className={`mobile-cta ${isHidden ? 'hidden' : ''}`} data-testid="mobile-cta">
-    <button onClick={scrollToWorkerForm} className="btn-primary" data-testid="mobile-join-btn">
+  <div
+    className={`mobile-cta ${isHidden ? "hidden" : ""}`}
+    data-testid="mobile-cta"
+  >
+    <button
+      onClick={scrollToWorkerForm}
+      className="btn-primary"
+      data-testid="mobile-join-btn"
+    >
       Join Roster
     </button>
-    <button onClick={scrollToClientForm} className="btn-outline" data-testid="mobile-request-btn">
+    <button
+      onClick={scrollToClientForm}
+      className="btn-outline"
+      data-testid="mobile-request-btn"
+    >
       Request Workers
     </button>
   </div>
@@ -907,37 +1085,39 @@ function App() {
   const [hideMobileCTA, setHideMobileCTA] = useState(false);
 
   const scrollToWorkerForm = () => {
-    workerFormRef.current?.scrollIntoView({ behavior: 'smooth' });
+    workerFormRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const scrollToClientForm = () => {
-    clientFormRef.current?.scrollIntoView({ behavior: 'smooth' });
+    clientFormRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
     const handleScroll = () => {
       if (!workerFormRef.current || !clientFormRef.current) return;
-      
+
       const workerRect = workerFormRef.current.getBoundingClientRect();
       const clientRect = clientFormRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      
+
       // Hide mobile CTA when either form section is in view
-      const workerInView = workerRect.top < windowHeight && workerRect.bottom > 0;
-      const clientInView = clientRect.top < windowHeight && clientRect.bottom > 0;
-      
+      const workerInView =
+        workerRect.top < windowHeight && workerRect.bottom > 0;
+      const clientInView =
+        clientRect.top < windowHeight && clientRect.bottom > 0;
+
       setHideMobileCTA(workerInView || clientInView);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <div className="App" data-testid="app">
-      <HeroSection 
-        scrollToWorkerForm={scrollToWorkerForm} 
-        scrollToClientForm={scrollToClientForm} 
+      <HeroSection
+        scrollToWorkerForm={scrollToWorkerForm}
+        scrollToClientForm={scrollToClientForm}
       />
       <StatsBar />
       <SpecializationsSection />
@@ -947,7 +1127,7 @@ function App() {
       <BlogSection />
       <Footer />
       <SocialTag />
-      <MobileCTA 
+      <MobileCTA
         scrollToWorkerForm={scrollToWorkerForm}
         scrollToClientForm={scrollToClientForm}
         isHidden={hideMobileCTA}
