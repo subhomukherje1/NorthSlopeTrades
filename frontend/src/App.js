@@ -520,6 +520,9 @@ const WorkerFormSection = ({ formRef }) => {
           <p className="form-privacy" data-testid="worker-form-privacy">
             Your information is never shared without your consent. No spam calls.
           </p>
+          <p className="form-consent" data-testid="worker-form-consent">
+            By submitting this form, you agree to receive calls and text messages from North Slope Trades regarding recruitment opportunities, account updates, and services. Message frequency varies. Message and data rates may apply. You can reply STOP to opt-out at any time.
+          </p>
         </div>
       </form>
     </section>
@@ -784,6 +787,9 @@ const ClientFormSection = ({ formRef }) => {
           >
             {isSubmitting ? <span className="spinner" /> : 'Submit a Crew Request'}
           </button>
+          <p className="form-consent" data-testid="client-form-consent">
+            By submitting this form, you agree to receive calls and text messages from North Slope Trades regarding recruitment opportunities, account updates, and services. Message frequency varies. Message and data rates may apply. You can reply STOP to opt-out at any time.
+          </p>
         </div>
       </form>
     </section>
