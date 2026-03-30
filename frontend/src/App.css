@@ -698,6 +698,14 @@
     opacity: 0.8;
 }
 
+.form-consent {
+    margin-top: 1rem;
+    font-size: 0.6875rem;
+    color: #64748B;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
 .form-success {
     padding: 3rem 2rem;
     text-align: center;
